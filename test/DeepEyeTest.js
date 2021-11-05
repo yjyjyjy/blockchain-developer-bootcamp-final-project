@@ -3,7 +3,7 @@ const { ethers } = require("hardhat");
 
 describe("DeepEye NFT contract", function () {
   let DeepEye;
-  let hardhatToken;
+  let deployedContract;
   let owner;
   let addr1;
   let addr2;
@@ -13,7 +13,7 @@ describe("DeepEye NFT contract", function () {
     DeepEye = await ethers.getContractFactory("DeepEye");
     [owner, addr1, addr2] = await ethers.getSigners();
 
-    hardhatToken = await DeepEye.deploy(
+    deployedContract = await DeepEye.deploy(
       'DeepEye',
       'EYE',
       'ipfs://QmZCCuNKGT9Y11r91aoXXj4hDZ8yAXL4UXB7iz5iQ3fGBa/',
@@ -24,7 +24,7 @@ describe("DeepEye NFT contract", function () {
   describe("Deployment", function () {
 
     it("Should set the right owner", async function () {
-      expect(await hardhatToken.owner()).to.equal(owner.address);
+      expect(await deployedContract.owner()).to.equal(owner.address);
     });
 
   });

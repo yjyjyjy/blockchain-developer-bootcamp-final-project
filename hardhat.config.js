@@ -1,11 +1,13 @@
 require("@nomiclabs/hardhat-waffle");
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+console.log(process.env.ALCHEMY_API_KEY);
+
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-// module.exports = {
-//   solidity: "0.8.7",
-// };
-
 
 module.exports = {
   defaultNetwork:"kovan",

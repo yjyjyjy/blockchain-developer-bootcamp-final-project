@@ -6,10 +6,8 @@ const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
 
 const { ethers } = require('hardhat');
 
-const DeepEyeContractAddr = '0xDD438E7d309aaCC417C0004D0f1F3D5748E16BF3'
-const RandomnessContractAddr = '0x5E3A3550cEBDc23BD793a0846CcEB117f92CAe87'
+const DeepEyeContractAddr = '0x2afdD260606C8015cC7d87594fa39159dBcca261'
 const eyeContractAbi = require('../artifacts/contracts/DeepEye.sol/DeepEye.json')
-const randContractAbi = require('../artifacts/contracts/Randomness.sol/Randomness.json')
 
 
 console.log('🚀🚀🚀 Provider')
@@ -24,8 +22,7 @@ const signer = new ethers.Wallet('0x'+PRIVATE_KEY, alchemyProvider);
 console.log('🚀🚀🚀 Contract')
 // Contract
 const eyeContract = new ethers.Contract(DeepEyeContractAddr, eyeContractAbi.abi, signer);
-const randContract = new ethers.Contract(RandomnessContractAddr, randContractAbi.abi, signer);
-// console.log(randContract.interface.functions)
+console.log(eyeContract.interface.functions)
 
 
 
@@ -35,8 +32,10 @@ async function main () {
   // console.log(accounts);
   // const callback = await randContract.getRandomNumber();
   // console.log(callback)
-  const result = await randContract.randomResult();
-  console.log(result.toNumber())
+  console.log(await eyeContract.getTokenIdShifter());
+  console.log("💎💎💎💎💎💎")
+  // await eyeContract.generateRandomTokenIdShifter();
+  console.log(await eyeContract.getTokenIdShifter());
 }
 
 

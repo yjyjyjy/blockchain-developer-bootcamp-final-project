@@ -3,26 +3,25 @@ pragma solidity ^0.8.0;
 
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-// import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.0.0/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract Randomness is VRFConsumerBase, Ownable {
-  bytes32 public keyHash;
-  uint256 public fee;
+
   uint32 public tokenIdShifter;
-  address public VRF_Coordinator = 0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B; // for Rinkeby. The smart contract that verify the returned randomness
-  address public LINK_token = 0x01BE23585060835E02B77ef475b0Cc51aA1e0709; // for Rinkeby.
   IERC20 public chainlink;
+
+  // Chainlink on Rinkeby settings
+  address public VRF_Coordinator = 0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B;
+  bytes32 public keyHash = 0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311;
+  address public LINK_token = 0x01BE23585060835E02B77ef475b0Cc51aA1e0709;
+  uint256 public fee = 0.1*10**18;//0.1 LINK
 
   event DiceRolled();
   event DiceLanded(uint32 indexed result);
 
   constructor()
     VRFConsumerBase(VRF_Coordinator, LINK_token) {
-    keyHash = 0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311; // Rinkeby
-    fee = 0.1*10**18;//0.1 LINK
-    tokenIdShifter = 0;
-    chainlink = IERC20(0x01BE23585060835E02B77ef475b0Cc51aA1e0709);
+    chainlink = IERC20(LINK_token);
   }
 
     function getRandomNumber() public onlyOwner returns (bytes32 requestId) {
@@ -34,7 +33,7 @@ contract Randomness is VRFConsumerBase, Ownable {
     /**
      * Callback function used by VRF Coordinator
      */
-    function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
+    function fulfillRandomness(bytes32, uint256 randomness) internal override {
         tokenIdShifter = uint32(randomness % 100 + 1);
         emit DiceLanded(tokenIdShifter);
     }

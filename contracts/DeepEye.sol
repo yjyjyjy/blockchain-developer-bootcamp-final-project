@@ -57,7 +57,7 @@ contract DeepEye is ERC721Enumerable, Ownable, Randomness {
       "ERC721Metadata: URI query for nonexistent token (It's not minted yet)"
     );
 
-    if(revealed == false && tokenIdShifter == 0) {
+    if(revealed == false) {
         return notRevealedUri;
     }
 

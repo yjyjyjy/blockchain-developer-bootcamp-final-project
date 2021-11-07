@@ -13,14 +13,18 @@ My final project will be a simple web UI to explore, mint, and (if time allows) 
 # Environment Setup
 ## Dependencies:
 npm install @openzeppelin/contracts
-
+yarn add @chainlink/contracts
+yarn add dotenv
 
 
 
 <!-- TODO -->
 https://courses.consensys.net/courses/take/blockchain-developer-bootcamp-registration-2021/assignments/27500647-final-project-submission
 
+
+
 // Events
+// Does the shit work on Rinkeby?
 
 1. Hide sensitive information
     1.  Metamast mnemonics, private keys >> .env

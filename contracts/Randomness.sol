@@ -3,22 +3,25 @@ pragma solidity ^0.8.0;
 
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.0.0/contracts/token/ERC20/IERC20.sol";
 
 contract Randomness is VRFConsumerBase, Ownable {
   bytes32 public keyHash;
   uint256 public fee;
   uint32 public tokenIdShifter;
-  address public VRF_Coordinator = 0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9; // for Kovan. The smart contract that verify the returned randomness
-  address public LINK_token = 0xa36085F69e2889c224210F603D836748e7dC0088; // for Kovan.
+  address public VRF_Coordinator = 0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B; // for Rinkeby. The smart contract that verify the returned randomness
+  address public LINK_token = 0x01BE23585060835E02B77ef475b0Cc51aA1e0709; // for Rinkeby.
+  IERC20 public chainlink;
 
   event DiceRolled();
-  event DiceLanded(uint256 indexed result);
+  event DiceLanded(uint32 indexed result);
 
   constructor()
     VRFConsumerBase(VRF_Coordinator, LINK_token) {
-    keyHash = 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4;
+    keyHash = 0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311; // Rinkeby
     fee = 0.1*10**18;//0.1 LINK
     tokenIdShifter = 0;
+    chainlink = IERC20(0x01BE23585060835E02B77ef475b0Cc51aA1e0709);
   }
 
     function getRandomNumber() public onlyOwner returns (bytes32 requestId) {
@@ -35,7 +38,12 @@ contract Randomness is VRFConsumerBase, Ownable {
         emit DiceLanded(tokenIdShifter);
     }
 
-    // TODO
-    // need to implement withdraw function
-    // owner only
+    function getBalance() public view returns (uint256) {
+        return chainlink.balanceOf(address(this));
+    }
+
+    // This function can withdraw the unused LINK token back to the contract owner.
+    function withdraw() public payable onlyOwner {
+        chainlink.transfer(owner(), getBalance());
+    }
 }

@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.0.0/contracts/token/ERC20/IERC20.sol";
+// import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.0.0/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract Randomness is VRFConsumerBase, Ownable {
   bytes32 public keyHash;
@@ -43,7 +44,7 @@ contract Randomness is VRFConsumerBase, Ownable {
     }
 
     // This function can withdraw the unused LINK token back to the contract owner.
-    function withdraw() public payable onlyOwner {
+    function refundOwner() public payable onlyOwner {
         chainlink.transfer(owner(), getBalance());
     }
 }

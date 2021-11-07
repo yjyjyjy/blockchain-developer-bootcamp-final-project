@@ -2,7 +2,6 @@
 
 pragma solidity ^0.8.0;
 
-
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./Randomness.sol";
@@ -46,7 +45,6 @@ contract DeepEye is ERC721Enumerable, Ownable, Randomness {
     }
   }
 
-
   function tokenURI(uint256 tokenId)
     public
     view
@@ -56,7 +54,7 @@ contract DeepEye is ERC721Enumerable, Ownable, Randomness {
   {
     require(
       _exists(tokenId),
-      "ERC721Metadata: URI query for nonexistent token"
+      "ERC721Metadata: URI query for nonexistent token (It's not minted yet)"
     );
 
     if(revealed == false && tokenIdShifter == 0) {
@@ -106,3 +104,4 @@ contract DeepEye is ERC721Enumerable, Ownable, Randomness {
     require(os);
   }
 }
+

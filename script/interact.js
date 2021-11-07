@@ -6,7 +6,7 @@ const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
 
 const { ethers } = require('hardhat');
 
-const DeepEyeContractAddr = '0x2afdD260606C8015cC7d87594fa39159dBcca261'
+const DeepEyeContractAddr = '0xA2e6A4E37AD23dB3477BFE3863212838291831c2'
 const eyeContractAbi = require('../artifacts/contracts/DeepEye.sol/DeepEye.json')
 
 
@@ -32,10 +32,11 @@ async function main () {
   // console.log(accounts);
   // const callback = await randContract.getRandomNumber();
   // console.log(callback)
-  console.log(await eyeContract.getTokenIdShifter());
+  await eyeContract.mint(3);
+  console.log(await eyeContract.tokenURI(1));
   console.log("💎💎💎💎💎💎")
   // await eyeContract.generateRandomTokenIdShifter();
-  console.log(await eyeContract.getTokenIdShifter());
+
 }
 
 

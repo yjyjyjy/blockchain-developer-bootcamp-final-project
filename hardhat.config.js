@@ -10,7 +10,7 @@ console.log(process.env.ALCHEMY_API_KEY);
  */
 
 module.exports = {
-  defaultNetwork:"kovan",
+  defaultNetwork:"hardhat",
   solidity: "0.8.0",
   networks: {
     hardhat: {

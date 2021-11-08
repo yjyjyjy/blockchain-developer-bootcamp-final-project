@@ -16,6 +16,19 @@ npm install @openzeppelin/contracts
 yarn add @chainlink/contracts
 yarn add dotenv
 
+### Front end
+install node
+npm install create-react-app
+npx create-react-app frontend
+npm install --save web3
+npm install react-bootstrap bootstrap
+
+
+## Deploy
+## Mint
+## Set TokenShifter
+## Reveal
+
 
 
 <!-- TODO -->

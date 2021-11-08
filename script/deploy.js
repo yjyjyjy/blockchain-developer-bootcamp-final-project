@@ -13,7 +13,7 @@ async function main() {
     'DeepEye', // NFT name
     'EYE', // NFT symbol
     'ipfs://QmZCCuNKGT9Y11r91aoXXj4hDZ8yAXL4UXB7iz5iQ3fGBa/', // Initial base URI
-    'ipfs://QmSbXBWCbhQaaATTnqhXyzpxHFrrPp1Gqax74emjJJHn8u/hidden.json' // Hidden Image URI
+    'ipfs://QmaAw1oqwKETsCK5AP2t5B3XieZH5vcwufFeB3tN2a7wJH/coming_soon.json' // Hidden Image meta URI
   )
 
   console.log("DeepEye Contract has been deployed to: ", deployedDeepEye.address)

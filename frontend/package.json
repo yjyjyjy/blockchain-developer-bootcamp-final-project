@@ -9,14 +9,18 @@
   "dependencies": {
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
+    "add": "^2.0.6",
+    "antd": "^4.16.13",
     "bootstrap": "^4.6.0",
     "ethers": "^5.1.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
     "react-bootstrap-icons": "^1.4.0",
     "react-dom": "^17.0.1",
+    "react-input-slider": "^6.0.1",
     "react-router-dom": "^5.1.2",
-    "styled-components": "^5.2.3"
+    "styled-components": "^5.2.3",
+    "yarn": "^1.22.17"
   },
   "devDependencies": {
     "babel-preset-razzle": "4.0.4",

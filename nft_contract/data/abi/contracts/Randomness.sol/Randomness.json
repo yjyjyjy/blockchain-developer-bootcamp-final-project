@@ -1,0 +1,18 @@
+[
+  "event DiceLanded(uint32 indexed result)",
+  "event DiceRolled()",
+  "event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)",
+  "function LINK_token() view returns (address)",
+  "function VRF_Coordinator() view returns (address)",
+  "function chainlink() view returns (address)",
+  "function fee() view returns (uint256)",
+  "function getBalance() view returns (uint256)",
+  "function getRandomNumber() returns (bytes32 requestId)",
+  "function keyHash() view returns (bytes32)",
+  "function owner() view returns (address)",
+  "function rawFulfillRandomness(bytes32 requestId, uint256 randomness)",
+  "function refundOwner() payable",
+  "function renounceOwnership()",
+  "function tokenIdShifter() view returns (uint32)",
+  "function transferOwnership(address newOwner)"
+]

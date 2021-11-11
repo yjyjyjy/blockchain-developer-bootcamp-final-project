@@ -1,16 +1,17 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Text from '../../components/Text';
-import BalanceInput from '../../components/BalanceInput';
 import Card from '../../components/Card';
 import Button from 'react-bootstrap/Button';
 import { colors } from '../../theme';
-import { ArrowDown } from 'react-bootstrap-icons';
-import { useCToken } from '../../hooks/useCToken';
 import { useAppContext } from '../../AppContext';
 import Spinner from 'react-bootstrap/Spinner';
 import useEth from '../../hooks/useEth';
 import useTransaction from '../../hooks/useTransaction';
+import MintSlider from '../../components/MintSlider';
+import { ContextExclusionPlugin } from 'webpack';
+import { useNFT } from '../../hooks/useNFT';
+
 
 const Container = styled.div`
   display: flex;
@@ -25,12 +26,13 @@ const Container = styled.div`
 `;
 
 const CompInteractionCard = () => {
-  const [depositAmount, setDepositAmount] = useState(0);
-  const { deposit, cTokenBalance, exchangeRate } = useCToken();
+  const [mintState, setMintState] = useState({ mintAmount: 3 })
+  const { mint } = useNFT();
   const { ethBalance } = useEth();
   const { txnStatus, setTxnStatus } = useTransaction();
-  const handleDepositSubmit = () => deposit(depositAmount);
-  const convertedAmount = useMemo(() => Number(depositAmount / exchangeRate).toFixed(4), [depositAmount, exchangeRate]);
+  const handleMintSubmit = () => {
+    mint(mintState.mintAmount);
+  }
 
   if (txnStatus === 'LOADING') {
     return (
@@ -65,17 +67,16 @@ const CompInteractionCard = () => {
       </Container>
     );
   }
+
   return (
     <Container show>
       <Card style={{ maxWidth: 420, minHeight: 400 }}>
         <Text block t2 color={colors.green} className="mb-3">
-          Deposit
+          Mint Awesome NFT
         </Text>
-        <BalanceInput balance={ethBalance} value={depositAmount} setValue={setDepositAmount} currency="eth" />
-        <ArrowDown color={colors.green} size={36} style={{ margin: '1rem auto' }} />
-        <BalanceInput balance={cTokenBalance} value={convertedAmount} currency="cToken" title="To" />
-        <Button variant="outline-dark" disabled={depositAmount <= 0} className="mt-3" onClick={handleDepositSubmit}>
-          Deposit {depositAmount} ETH
+        <MintSlider mintState={mintState} setMintState={setMintState} />
+        <Button variant="outline-dark" disabled={mintState.mintAmount <= 0 || mintState.mintAmount > 10} className="mt-3" onClick={handleMintSubmit}>
+          Mint {mintState.mintAmount} NFT(s)
         </Button>
       </Card>
     </Container>

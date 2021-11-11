@@ -8,15 +8,12 @@ const useEth = () => {
   const { ethBalance, setEthBalance } = useAppContext();
 
   const fetchEthBalance = async () => {
-    console.log('fetchEthBalance');
     if (library && active && account) {
       const balance = await library.getBalance(account);
       // better to do safe math operations
       setEthBalance(parseFloat(formatEther(balance)).toPrecision(4));
-      console.log('SUCCESS')
     } else {
       setEthBalance('--');
-      console.log('setnull')
     }
   };
 

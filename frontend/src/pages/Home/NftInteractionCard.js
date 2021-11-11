@@ -29,7 +29,6 @@ const NftInteractionCard = () => {
   const [mintState, setMintState] = useState({ mintAmount: 3 })
   const { mint } = useNFT();
   const { ethBalance } = useEth();
-  const { fetchNftCost } = useNFT()
   const { account } = useWeb3React();
   const { mintCost } = useAppContext();
   const { txnStatus, setTxnStatus } = useTransaction();
@@ -38,12 +37,6 @@ const NftInteractionCard = () => {
   const handleMintSubmit = () => {
     mint(mintState.mintAmount);
   }
-
-  useEffect(() => {
-    fetchNftCost();
-  }, [])
-  console.log(mintCost)
-  console.log(txnStatus)
 
   if (txnStatus === 'LOADING') {
     return (
@@ -87,7 +80,7 @@ const NftInteractionCard = () => {
         </Text>
         <MintSlider mintState={mintState} setMintState={setMintState} />
         <Text>
-          Cost: `${mintCost}` ETH
+          Cost: {mintCost} ETH
         </Text>
         <Button
           variant="outline-dark"

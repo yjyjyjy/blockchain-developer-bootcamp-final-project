@@ -5,6 +5,8 @@ import { useWeb3React } from '@web3-react/core';
 import { useAppContext } from '../AppContext';
 import { useEffect } from 'react';
 import { formatEther } from '@ethersproject/units';
+import useEth from './useEth';
+
 
 export const useNFT = () => {
   const { account } = useWeb3React();
@@ -12,21 +14,7 @@ export const useNFT = () => {
   const nftContractAddress = '0x0476eC77191623e22D6B73dC43998a27997d435d'; // rinkeby contract address
   const nftContract = useContract(nftContractAddress, nftABI);
   const { setTxnStatus, setNftBalance, setMintCost } = useAppContext();
-
-  // const fetchCTokenBalance = async () => {
-  //   const cTokenBalance = await cTokenContract.balanceOf(account);
-  //   setCTokenBalance(formatUnits(cTokenBalance, 8));
-  // };
-
-  // const getCTokenExchangeRate = async () => {
-  //   try {
-  //     let exchangeRateCurrent = await cTokenContract.callStatic.exchangeRateCurrent();
-  //     exchangeRateCurrent = exchangeRateCurrent / Math.pow(10, 18 + 18 - 8);
-  //     setExchangeRate(exchangeRateCurrent);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const { fetchEthBalance } = useEth();
 
   const fetchNFTBalance = async () => {
     try {
@@ -35,6 +23,7 @@ export const useNFT = () => {
       const balString = balance.toNumber().toString() + ' ' + symbol;
       setNftBalance(balString)
     } catch (error) {
+      console.log('err: fetchNFTBalance')
       setTxnStatus('ERROR');
       console.log(error)
     }
@@ -46,6 +35,7 @@ export const useNFT = () => {
       const cost = parseFloat(formatEther(costRaw)).toPrecision(4);
       setMintCost(cost);
     } catch (error) {
+      console.log('err: fetchNftCost')
       setTxnStatus('ERROR');
       console.log(error)
     }
@@ -58,7 +48,10 @@ export const useNFT = () => {
         const txn = await nftContract.mint(amount);
         await txn.wait(1);
         setTxnStatus('COMPLETE');
+        fetchNFTBalance();
+        fetchEthBalance();
       } catch (error) {
+        console.log('err: mint')
         setTxnStatus('ERROR');
         console.log(error)
       }
@@ -71,6 +64,11 @@ export const useNFT = () => {
     }
   }, [account]);
 
+  useEffect(() => {
+    if (account) {
+      fetchNftCost();
+    }
+  }, [account]);
   return {
     fetchNFTBalance,
     fetchNftCost,

@@ -7,6 +7,8 @@ import Text from './Text';
 import Card from './Card';
 import { injected } from '../connectors';
 import { shortenAddress } from '../utils/shortenAddress';
+import { useAppContext } from '../AppContext';
+
 
 const MetamaskLogo = styled.img.attrs({
   src: MMLogo,
@@ -18,6 +20,13 @@ const ConnectBtn = styled(Button).attrs({ variant: 'outline-dark' })``;
 
 const MetamaskConnectButton = () => {
   const { activate, active, account, deactivate } = useWeb3React();
+  const { setEthBalance, setNftBalance } = useAppContext();
+
+  const handleLogout = () => {
+    deactivate()
+    setEthBalance('--');
+    setNftBalance('--');
+  }
 
   if (active) {
     return (
@@ -26,7 +35,7 @@ const MetamaskConnectButton = () => {
         <Text uppercase color="green" t3 lineHeight="40px" className="mx-4">
           {shortenAddress(account)}
         </Text>
-        <ConnectBtn onClick={deactivate}>Log Out</ConnectBtn>
+        <ConnectBtn onClick={handleLogout}>Log Out</ConnectBtn>
       </Card>
     );
   }

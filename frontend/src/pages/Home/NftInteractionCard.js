@@ -9,8 +9,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import useEth from '../../hooks/useEth';
 import useTransaction from '../../hooks/useTransaction';
 import MintSlider from '../../components/MintSlider';
-import { ContextExclusionPlugin } from 'webpack';
 import { useNFT } from '../../hooks/useNFT';
+import { useWeb3React } from '@web3-react/core';
 
 
 const Container = styled.div`
@@ -25,14 +25,25 @@ const Container = styled.div`
   z-index: 1;
 `;
 
-const CompInteractionCard = () => {
+const NftInteractionCard = () => {
   const [mintState, setMintState] = useState({ mintAmount: 3 })
   const { mint } = useNFT();
   const { ethBalance } = useEth();
+  const { fetchNftCost } = useNFT()
+  const { account } = useWeb3React();
+  const { mintCost } = useAppContext();
   const { txnStatus, setTxnStatus } = useTransaction();
+
+
   const handleMintSubmit = () => {
     mint(mintState.mintAmount);
   }
+
+  useEffect(() => {
+    fetchNftCost();
+  }, [])
+  console.log(mintCost)
+  console.log(txnStatus)
 
   if (txnStatus === 'LOADING') {
     return (
@@ -75,7 +86,18 @@ const CompInteractionCard = () => {
           Mint Awesome NFT
         </Text>
         <MintSlider mintState={mintState} setMintState={setMintState} />
-        <Button variant="outline-dark" disabled={mintState.mintAmount <= 0 || mintState.mintAmount > 10} className="mt-3" onClick={handleMintSubmit}>
+        <Text>
+          Cost: `${mintCost}` ETH
+        </Text>
+        <Button
+          variant="outline-dark"
+          disabled={
+            mintState.mintAmount <= 0 ||
+            mintState.mintAmount > 10 ||
+            !account
+          }
+          className="mt-3"
+          onClick={handleMintSubmit}>
           Mint {mintState.mintAmount} NFT(s)
         </Button>
       </Card>
@@ -83,4 +105,4 @@ const CompInteractionCard = () => {
   );
 };
 
-export default CompInteractionCard;
+export default NftInteractionCard;

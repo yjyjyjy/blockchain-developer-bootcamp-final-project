@@ -1,16 +1,20 @@
-import React, { createContext, useReducer } from 'react';
+import React, { useContext, createContext, useReducer } from 'react';
 
 const initialContext = {
   ethBalance: '--',
-  setEthBalance: () => {},
-  cTokenBalance: '--',
-  setCTokenBalance: () => {},
-  exchangeRate: 0,
-  setExchangeRate: () => {},
+  setEthBalance: () => { },
+
+  nftBalance: '--',
+  setNftBalance: () => { },
+
+  mintCost: '--',
+  setMintCost: () => { },
+
   isWalletConnectionModalOpen: false,
-  setWalletConnectModal: () => {},
+  setWalletConnectModal: () => { },
+
   txnStatus: 'NOT_SUBMITTED',
-  setTxnStatus: () => {},
+  setTxnStatus: () => { },
 };
 
 const appReducer = (state, { type, payload }) => {
@@ -21,17 +25,17 @@ const appReducer = (state, { type, payload }) => {
         ethBalance: payload,
       };
 
-    case 'SET_C_TOKEN_BALANCE':
+    case 'SET_NFT_BALANCE':
       return {
         ...state,
-        cTokenBalance: payload,
-      };
+        nftBalance: payload,
+      }
 
-    case 'SET_EXCHANGE_RATE':
+    case 'SET_MINT_COST':
       return {
         ...state,
-        exchangeRate: payload,
-      };
+        mintCost: payload,
+      }
 
     case 'SET_WALLET_MODAL':
       return {
@@ -50,7 +54,7 @@ const appReducer = (state, { type, payload }) => {
 };
 
 const AppContext = createContext(initialContext);
-export const useAppContext = () => React.useContext(AppContext);
+export const useAppContext = () => useContext(AppContext);
 export const AppContextProvider = ({ children }) => {
   const [store, dispatch] = useReducer(appReducer, initialContext);
 
@@ -59,18 +63,22 @@ export const AppContextProvider = ({ children }) => {
     setEthBalance: (balance) => {
       dispatch({ type: 'SET_ETH_BALANCE', payload: balance });
     },
-    cTokenBalance: store.cTokenBalance,
-    setCTokenBalance: (balance) => {
-      dispatch({ type: 'SET_C_TOKEN_BALANCE', payload: balance });
+
+    nftBalance: store.nftBalance,
+    setNftBalance: (balance) => {
+      dispatch({ type: 'SET_NFT_BALANCE', payload: balance })
     },
-    exchangeRate: store.exchangeRate,
-    setExchangeRate: (rate) => {
-      dispatch({ type: 'SET_EXCHANGE_RATE', payload: rate });
+
+    mintCost: store.mintCost,
+    setMintCost: (cost) => {
+      dispatch({ type: 'SET_MINT_COST', payload: cost })
     },
+
     isWalletConnectModalOpen: store.isWalletConnectModalOpen,
     setWalletConnectModal: (open) => {
       dispatch({ type: 'SET_WALLET_MODAL', payload: open });
     },
+
     txnStatus: store.txnStatus,
     setTxnStatus: (status) => {
       dispatch({ type: 'SET_TXN_STATUS', payload: status });

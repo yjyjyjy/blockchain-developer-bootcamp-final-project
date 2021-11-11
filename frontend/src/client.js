@@ -7,10 +7,11 @@ const renderMethod = module.hot ? render : hydrate;
 
 export const Client = () => {
   return (
-    <BrowserRouter>
-          <App />
 
+    <BrowserRouter>
+      <App />
     </BrowserRouter>
+
   );
 };
 

@@ -13,23 +13,23 @@ My final project will be a simple web UI to explore, mint, and (if time allows) 
 # Environment Setup
 
 ## .evn
-RINKEBY_END_POINT=https://rinkeby.infura.io/v3/282f04d814ba4cddb58390c0a41a97f2
-RINKEBY_PROJECT_ID=282f04d814ba4cddb58390c0a41a97f2
-DEV_ACCOUNT_PRIVATE_KEY=0x61c3cddbca209b7197187cbaf98accf5e7dd4fe3276f7d3444ab955dc035b4ef
-
-RINKEBY_CONTRACT_ADDRESS=0x0476eC77191623e22D6B73dC43998a27997d435d
+RINKEBY_END_POINT= INFURA RINKEBY END POINT
+RINKEBY_PROJECT_ID= INFURA RINKEBY PROJECT ID
+DEV_ACCOUNT_PRIVATE_KEY= METAMASK PRIVATE KEY
+RINKEBY_CONTRACT_ADDRESS= DEPLOYED CONTRACT ADDRESS
 ## Dependencies:
 npm install @openzeppelin/contracts
 yarn add @chainlink/contracts
 yarn add dotenv
 
 ### Front end
-install node
 npm install create-react-app
 npx create-react-app frontend
 npm install --save web3
 npm install react-bootstrap bootstrap\
 yarn add --dev hardhat-abi-exporter
+
+
 
 
 ## Deploy

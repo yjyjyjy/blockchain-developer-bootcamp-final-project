@@ -31,14 +31,16 @@ contract DeepEye is ERC721Enumerable, Ownable, Randomness {
 
   // public
   function mint(uint256 _mintAmount) public payable {
-    uint256 supply = totalSupply(); // TODO where is this coming from?
+    uint256 supply = totalSupply();
+
     require(!paused);
     require(_mintAmount > 0);
     require(_mintAmount <= maxMintAmount);
     require(supply + _mintAmount <= maxSupply);
 
+
     if (msg.sender != owner()) {
-      require(msg.value >= cost * _mintAmount);
+      require(msg.value >= cost * _mintAmount, "Need to attch sufficient funds");
     }
 
     for (uint256 i = 1; i <= _mintAmount; i++) {

@@ -6,11 +6,11 @@ const ADDRESS = process.env.RINKEBY_CONTRACT_ADDRESS;
 
 const { ethers } = require('hardhat');
 const contractAbi = require('../artifacts/contracts/DeepEye.sol/DeepEye.json')
-const infuraProvider = new ethers.providers.InfuraProvider(network='rinkeby', PROJECT_ID)
+const infuraProvider = new ethers.providers.InfuraProvider(network = 'rinkeby', PROJECT_ID)
 const signer = new ethers.Wallet(PRIVATE_KEY, infuraProvider);
 const eyeContract = new ethers.Contract(ADDRESS, contractAbi.abi, signer);
 
-async function main () {
+async function main() {
   // Retrieve accounts from the local node
   // const accounts = await ethers.provider.listAccounts();
   // console.log(accounts);

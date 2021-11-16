@@ -2,6 +2,19 @@
 
 pragma solidity ^0.8.0;
 
+/// @title Contract to Mint Reveal and Maintain an NFT contract
+/// @author Junyu Yang
+/// @notice All contract is deployed, tested and run on Rinkeby network.
+/**
+@dev
+NFT project owners can deploy this contract to maintain NFT assets including the asset json, pre-reveal hidden image. This contract will also manage the reveal process.
+Before the reveal, all images are pointed to a hidden image to protect the NFT assets from being copied or users hand-picking which one to mint.
+During the reveal, the meta data, returned by tokenURI function start to point to the real NFT assets. This is the designated function opensea use to link token id to the underlying art.
+A random number is drawn using Chainlink VRF oracle to shift the NFT token <> art match so there is no chance for either owner or user to exploit rarity before the reveal.
+
+NFT minters can use this contract to mint NFTs at a cost set by the owner. Owner can mint their NFT for free. Owner can also withdraw the ether paid by users.
+ */
+
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./Randomness.sol";
@@ -10,14 +23,14 @@ import "hardhat/console.sol";
 contract DeepEye is ERC721Enumerable, Ownable, Randomness {
   using Strings for uint256;
 
-  string baseURI;
+  string baseURI; // this is the URI pointing to the real NFT arts on IPFS
   string public baseExtension = ".json";
-  uint256 public cost = 0.05 ether;
-  uint256 public maxSupply = 100;
-  uint256 public maxMintAmount = 3;
-  bool public paused = false;
-  bool public revealed = false;
-  string public notRevealedUri;
+  uint256 public cost = 0.05 ether; // This is the initial price set by the owner to mint each NFT.
+  uint256 public maxSupply = 100; // Total number of NFT that are available to mint.
+  uint256 public maxMintAmount = 10; // The max amount of NFTs that can be mint at a time.
+  bool public paused = false; // circuit breaker. The owner can pause the contract from executing important functions during emergency.
+  bool public revealed = false; // if the NFT project has been revealed.
+  string public notRevealedUri; // this is the boilerplate image the token point to before the reveal after the mint.
 
   constructor(
     string memory _name,
@@ -48,6 +61,7 @@ contract DeepEye is ERC721Enumerable, Ownable, Randomness {
     }
   }
 
+  // this function map the TokenId to the art assets on IPFS. This is the designated way
   function tokenURI(uint256 tokenId)
     public
     view
@@ -70,12 +84,13 @@ contract DeepEye is ERC721Enumerable, Ownable, Randomness {
         : "";
   }
 
-  //only owner
+  //change the status from hidden to reveal. This is a one way function, meaning it can't go from revealed to hidden again.
   function reveal() public onlyOwner {
     // make sure the admin run eyeContract.getRandomNumber() first to update the tokenIdShifter.
     revealed = true;
   }
 
+  // Owner can change the minting cost
   function setCost(uint256 _newCost) public onlyOwner {
     cost = _newCost;
   }
@@ -84,10 +99,12 @@ contract DeepEye is ERC721Enumerable, Ownable, Randomness {
     maxMintAmount = _newmaxMintAmount;
   }
 
+  // set the URI of the not revealed art asset.
   function setNotRevealedURI(string memory _notRevealedURI) public onlyOwner {
     notRevealedUri = _notRevealedURI;
   }
 
+  // set the URI of the not revealed art
   function setBaseURI(string memory _newBaseURI) public onlyOwner {
     baseURI = _newBaseURI;
   }
@@ -96,10 +113,12 @@ contract DeepEye is ERC721Enumerable, Ownable, Randomness {
     baseExtension = _newBaseExtension;
   }
 
+  // Toggle pause
   function pause(bool _state) public onlyOwner {
     paused = _state;
   }
 
+  // after the mint, the owner can call this function to collect funds.
   function withdraw() public payable onlyOwner {
     (bool os, ) = payable(owner()).call{value: address(this).balance}("");
     require(os);

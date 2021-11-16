@@ -1,13 +1,18 @@
 import React, { useContext, createContext, useReducer } from 'react';
+import { formatEther } from '@ethersproject/units';
+
 
 const initialContext = {
+  isOwner: false,
+  setIsOwner: () => { },
+
   ethBalance: '--',
   setEthBalance: () => { },
 
   nftBalance: '--',
   setNftBalance: () => { },
 
-  mintCost: '--',
+  mintCost: 0,
   setMintCost: () => { },
 
   isWalletConnectionModalOpen: false,
@@ -19,6 +24,12 @@ const initialContext = {
 
 const appReducer = (state, { type, payload }) => {
   switch (type) {
+    case "SET_IS_OWNER":
+      return {
+        ...state,
+        isOwner: payload,
+      }
+
     case 'SET_ETH_BALANCE':
       return {
         ...state,
@@ -59,6 +70,11 @@ export const AppContextProvider = ({ children }) => {
   const [store, dispatch] = useReducer(appReducer, initialContext);
 
   const contextValue = {
+    isOwner: store.isOwner,
+    setIsOwner: (isOwner) => {
+      dispatch({ type: 'SET_IS_OWNER', payload: isOwner });
+    },
+
     ethBalance: store.ethBalance,
     setEthBalance: (balance) => {
       dispatch({ type: 'SET_ETH_BALANCE', payload: balance });

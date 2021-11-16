@@ -55,17 +55,30 @@ describe("DeepEye NFT contract", function () {
       expect(guest1_bal).to.equal(2);
     });
 
-    it("Owner should be able to call reveal", async function () {
-      await contract.connect(owner).reveal();
-      let revealed = await contract.revealed();
-      expect(revealed).to.equal(true);
+  });
+
+  describe("Reveal", function () {
+
+    it("Before reveal, the URL should be the hidden URL", async function () {
+      await contract.connect(owner).mint(1);
+      let url = await contract.tokenURI(1);
+      expect(url).to.equal(process.env.HIDDEN_META_URI);
     });
 
     it("Guest should NOT be able to call reveal", async function () {
       expect(contract.connect(guest1).reveal()).to.reverted;
     });
 
-  });
+    it("Owner should be able to call reveal and the url should point to the revealed asset", async function () {
+      await contract.connect(owner).mint(1);
+      await contract.connect(owner).reveal();
+      let revealed = await contract.revealed();
+      expect(revealed).to.equal(true);
+      let url = await contract.tokenURI(1);
+      console.log(url);
+      expect(url).to.equal(process.env.BASE_URI + "2.json");
+    });
+  })
 
 });
 

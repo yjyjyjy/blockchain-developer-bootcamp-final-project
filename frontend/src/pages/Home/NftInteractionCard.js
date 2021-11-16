@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Text from '../../components/Text';
 import Card from '../../components/Card';
@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import { colors } from '../../theme';
 import { useAppContext } from '../../AppContext';
 import Spinner from 'react-bootstrap/Spinner';
-import useEth from '../../hooks/useEth';
 import useTransaction from '../../hooks/useTransaction';
 import MintSlider from '../../components/MintSlider';
 import { useNFT } from '../../hooks/useNFT';
@@ -28,9 +27,8 @@ const Container = styled.div`
 const NftInteractionCard = () => {
   const [mintState, setMintState] = useState({ mintAmount: 3 })
   const { mint } = useNFT();
-  const { ethBalance } = useEth();
   const { account } = useWeb3React();
-  const { mintCost } = useAppContext();
+  const { mintCost, isOwner } = useAppContext();
   const { txnStatus, setTxnStatus } = useTransaction();
 
 
@@ -80,7 +78,10 @@ const NftInteractionCard = () => {
         </Text>
         <MintSlider mintState={mintState} setMintState={setMintState} />
         <Text>
-          Cost: {mintCost} ETH
+          Price: {isOwner ? 0 : (mintCost / 10 ** 18).toString()} ETH per NFT
+        </Text>
+        <Text>
+          Total Cost: {isOwner ? 0 : (mintCost * mintState.mintAmount / 10 ** 18).toString()} ETH
         </Text>
         <Button
           variant="outline-dark"

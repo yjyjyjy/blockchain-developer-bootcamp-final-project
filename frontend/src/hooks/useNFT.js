@@ -4,7 +4,6 @@ import useIsValidNetwork from '../hooks/useIsValidNetwork';
 import { useWeb3React } from '@web3-react/core';
 import { useAppContext } from '../AppContext';
 import { useEffect } from 'react';
-import { formatEther } from '@ethersproject/units';
 import useEth from './useEth';
 
 
@@ -13,7 +12,7 @@ export const useNFT = () => {
   const { isValidNetwork } = useIsValidNetwork();
   const nftContractAddress = '0x0476eC77191623e22D6B73dC43998a27997d435d'; // rinkeby contract address
   const nftContract = useContract(nftContractAddress, nftABI);
-  const { setTxnStatus, setNftBalance, setMintCost } = useAppContext();
+  const { setTxnStatus, setNftBalance, setMintCost, setIsOwner, isOwner } = useAppContext();
   const { fetchEthBalance } = useEth();
 
   const fetchNFTBalance = async () => {
@@ -29,10 +28,20 @@ export const useNFT = () => {
     }
   }
 
+  const fetchIsOwner = async (account) => {
+    try {
+      const owner = await nftContract.owner();
+      setIsOwner(account === owner);
+    } catch (error) {
+      console.log('err: fetchIsOwner')
+      setTxnStatus('ERROR');
+      console.log(error)
+    }
+  }
+
   const fetchNftCost = async () => {
     try {
-      const costRaw = await nftContract.cost();
-      const cost = parseFloat(formatEther(costRaw)).toPrecision(4);
+      const cost = await nftContract.cost();
       setMintCost(cost);
     } catch (error) {
       console.log('err: fetchNftCost')
@@ -45,7 +54,8 @@ export const useNFT = () => {
     if (account && isValidNetwork && Number.isInteger(amount)) {
       try {
         setTxnStatus('LOADING');
-        const txn = await nftContract.mint(amount);
+        const costRaw = await nftContract.cost();
+        const txn = await nftContract.mint(amount, { value: isOwner ? 0 : costRaw.mul(amount) });
         await txn.wait(1);
         setTxnStatus('COMPLETE');
         fetchNFTBalance();
@@ -60,16 +70,14 @@ export const useNFT = () => {
 
   useEffect(() => {
     if (account) {
+      fetchIsOwner(account);
       fetchNFTBalance();
-    }
-  }, [account]);
-
-  useEffect(() => {
-    if (account) {
       fetchNftCost();
     }
   }, [account]);
+
   return {
+    fetchIsOwner,
     fetchNFTBalance,
     fetchNftCost,
     mint

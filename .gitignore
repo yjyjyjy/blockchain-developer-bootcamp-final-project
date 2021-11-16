@@ -327,6 +327,9 @@ dependency-reduced-pom.xml
 # Python
 *.pyc
 
+# Solidity
+**/artifacts/build-info/
+
 # Scala - sbt specific
 .cache
 .history

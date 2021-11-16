@@ -28,6 +28,10 @@ const MetamaskConnectButton = () => {
     setNftBalance('--');
   }
 
+  const handleLogin = () => {
+    activate(injected);
+  }
+
   if (active) {
     return (
       <Card className="d-flex flex-row justify-content-between" style={{ width: 350 }}>
@@ -46,7 +50,7 @@ const MetamaskConnectButton = () => {
       <Text uppercase color="green" t3 lineHeight="40px" className="mx-2">
         Metamask
       </Text>
-      <ConnectBtn onClick={() => activate(injected)}>Connect</ConnectBtn>
+      <ConnectBtn onClick={handleLogin}>Connect</ConnectBtn>
     </Card>
   );
 };

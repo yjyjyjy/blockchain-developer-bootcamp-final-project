@@ -21,6 +21,8 @@ RINKEBY_CONTRACT_ADDRESS= DEPLOYED CONTRACT ADDRESS
 npm install @openzeppelin/contracts
 yarn add @chainlink/contracts
 yarn add dotenv
+install hardhat
+install hardhat shorthand
 
 ### Front end
 npm install create-react-app
@@ -36,6 +38,23 @@ yarn add --dev hardhat-abi-exporter
 ## Mint
 ## Set TokenShifter
 ## Reveal
+
+# Design Patterns and considerations:
+## Design patters:
+1. Oracles
+2. Inheritance
+3. Access Control
+4. Upgradable Contract
+
+## Security considerations:
+1. Avoid re-entrancy attack
+2. primoritize pull over push
+
+## Unit tests
+Unit tests are written in DeepEyeTest.js under test folder. The purpose of each test is written in the code. To run the test, simply go
+```
+hh test
+```
 
 
 

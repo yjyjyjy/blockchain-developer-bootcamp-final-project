@@ -7,10 +7,11 @@ import { AppContextProvider } from './AppContext';
 
 
 import BalanceCard from './components/BalanceCard';
+import MintBoxBase from './components/MintBoxBase';
+
 import MetamaskConnectButton from './components/MetamaskConnectButton';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
 
 
 
@@ -34,7 +35,7 @@ function App() {
               </Col>
             </Row>
             <Row>
-              <div>Body</div>
+              <MintBoxBase />
             </Row>
           </Container>
         </div>

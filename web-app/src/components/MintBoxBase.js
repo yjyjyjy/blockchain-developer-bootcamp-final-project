@@ -3,10 +3,6 @@ import { Container } from 'react-bootstrap';
 import ConnectWalletModal from './ConnectWalletModal';
 import MintCard from './MintCard';
 import useWalletConnectionModal from '../hooks/useWalletConnectionModal';
-// import ConnectWalletModal from '../../components/ConnectWalletModal';
-// import useWalletConnectionModal from '../../hooks/useWalletConnectionModal';
-
-
 
 const MintBoxBase = () => {
   const { isWalletConnectModalOpen } = useWalletConnectionModal();

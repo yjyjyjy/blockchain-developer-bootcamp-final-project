@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { ArrowDown } from 'react-bootstrap-icons';
 import { useAppContext } from '../AppContext';
 import Spinner from 'react-bootstrap/Spinner';
+import { Card } from 'react-bootstrap';
 // import Text from '../../components/Text';
 // import Card from '../../components/Card';
 // import { colors } from '../../theme';
@@ -35,9 +36,9 @@ const MintCard = () => {
   if (txnStatus === 'LOADING') {
     return (
       <Container show>
-        {/* <Card style={{ maxWidth: 420, minHeight: 400 }}>
+        <Card style={{ maxWidth: 420, minHeight: 400 }}>
           <Spinner animation="border" role="status" className="m-auto" />
-        </Card> */}
+        </Card>
       </Container>
     );
   }
@@ -45,12 +46,12 @@ const MintCard = () => {
   if (txnStatus === 'COMPLETE') {
     return (
       <Container show>
-        {/* <Card style={{ maxWidth: 420, minHeight: 400 }}>
-          <Text block center className="mb-5">
-            Txn Was successful!
-          </Text>
+        <Card style={{ maxWidth: 420, minHeight: 400 }}>
+          {/* <Text block center className="mb-5"> */}
+          Txn Was successful!
+          {/* </Text> */}
           <Button onClick={() => setTxnStatus('NOT_SUBMITTED')}>Go Back</Button>
-        </Card> */}
+        </Card>
       </Container>
     );
   }
@@ -67,18 +68,17 @@ const MintCard = () => {
   }
   return (
     <Container show>
-      {/* <Card style={{ maxWidth: 420, minHeight: 400 }}>
-        <Text block t2 color={colors.green} className="mb-3">
-          Deposit
-        </Text>
-        <BalanceInput balance={ethBalance} value={depositAmount} setValue={setDepositAmount} currency="eth" />
-        <ArrowDown color={colors.green} size={36} style={{ margin: '1rem auto' }} />
-        <BalanceInput balance={cTokenBalance} value={convertedAmount} currency="cToken" title="To" />
-        <Button variant="outline-dark" disabled={depositAmount <= 0} className="mt-3" onClick={handleDepositSubmit}>
+      <Card style={{ maxWidth: 420, minHeight: 400 }}>
+        {/* <Text block t2 color={colors.green} className="mb-3"> */}
+        Deposit
+        {/* </Text> */}
+        {/* <BalanceInput balance={ethBalance} value={depositAmount} setValue={setDepositAmount} currency="eth" /> */}
+        {/* <ArrowDown color={colors.green} size={36} style={{ margin: '1rem auto' }} /> */}
+        {/* <BalanceInput balance={cTokenBalance} value={convertedAmount} currency="cToken" title="To" /> */}
+        <Button variant="outline-dark" disabled={depositAmount <= 0} className="mt-3" onClick={() => { }}>
           Deposit {depositAmount} ETH
         </Button>
-      </Card> */}
-      MINT
+      </Card>
     </Container>
   );
 };

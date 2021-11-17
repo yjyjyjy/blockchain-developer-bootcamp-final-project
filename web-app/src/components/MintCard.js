@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import Text from '../../components/Text';
-import BalanceInput from '../../components/BalanceInput';
-import Card from '../../components/Card';
 import Button from 'react-bootstrap/Button';
-import { colors } from '../../theme';
 import { ArrowDown } from 'react-bootstrap-icons';
-import { useCToken } from '../../hooks/useCToken';
 import { useAppContext } from '../AppContext';
 import Spinner from 'react-bootstrap/Spinner';
-import useEth from '../../hooks/useEth';
-import useTransaction from '../../hooks/useTransaction';
+// import Text from '../../components/Text';
+// import Card from '../../components/Card';
+// import { colors } from '../../theme';
+// import { useCToken } from '../../hooks/useCToken';
+// import useEth from '../../hooks/useEth';
+// import useTransaction from '../../hooks/useTransaction';
+// import BalanceInput from '../../components/BalanceInput';
 
 const Container = styled.div`
   display: flex;
@@ -24,20 +24,20 @@ const Container = styled.div`
   z-index: 1;
 `;
 
-const CompInteractionCard = () => {
+const MintCard = () => {
   const [depositAmount, setDepositAmount] = useState(0);
-  const { deposit, cTokenBalance, exchangeRate } = useCToken();
-  const { ethBalance } = useEth();
-  const { txnStatus, setTxnStatus } = useTransaction();
-  const handleDepositSubmit = () => deposit(depositAmount);
-  const convertedAmount = useMemo(() => Number(depositAmount / exchangeRate).toFixed(4), [depositAmount, exchangeRate]);
+  // const { deposit, cTokenBalance, exchangeRate } = useCToken();
+  // const { ethBalance } = useEth();
+  const { txnStatus, setTxnStatus } = useAppContext();
+  // const handleDepositSubmit = () => deposit(depositAmount);
+  // const convertedAmount = useMemo(() => Number(depositAmount / exchangeRate).toFixed(4), [depositAmount, exchangeRate]);
 
   if (txnStatus === 'LOADING') {
     return (
       <Container show>
-        <Card style={{ maxWidth: 420, minHeight: 400 }}>
+        {/* <Card style={{ maxWidth: 420, minHeight: 400 }}>
           <Spinner animation="border" role="status" className="m-auto" />
-        </Card>
+        </Card> */}
       </Container>
     );
   }
@@ -45,12 +45,12 @@ const CompInteractionCard = () => {
   if (txnStatus === 'COMPLETE') {
     return (
       <Container show>
-        <Card style={{ maxWidth: 420, minHeight: 400 }}>
+        {/* <Card style={{ maxWidth: 420, minHeight: 400 }}>
           <Text block center className="mb-5">
             Txn Was successful!
           </Text>
           <Button onClick={() => setTxnStatus('NOT_SUBMITTED')}>Go Back</Button>
-        </Card>
+        </Card> */}
       </Container>
     );
   }
@@ -58,16 +58,16 @@ const CompInteractionCard = () => {
   if (txnStatus === 'ERROR') {
     return (
       <Container show>
-        <Card style={{ maxWidth: 420, minHeight: 400 }}>
+        {/* <Card style={{ maxWidth: 420, minHeight: 400 }}>
           <Text>Txn ERROR</Text>
           <Button onClick={() => setTxnStatus('NOT_SUBMITTED')}>Go Back</Button>
-        </Card>
+        </Card> */}
       </Container>
     );
   }
   return (
     <Container show>
-      <Card style={{ maxWidth: 420, minHeight: 400 }}>
+      {/* <Card style={{ maxWidth: 420, minHeight: 400 }}>
         <Text block t2 color={colors.green} className="mb-3">
           Deposit
         </Text>
@@ -77,9 +77,10 @@ const CompInteractionCard = () => {
         <Button variant="outline-dark" disabled={depositAmount <= 0} className="mt-3" onClick={handleDepositSubmit}>
           Deposit {depositAmount} ETH
         </Button>
-      </Card>
+      </Card> */}
+      MINT
     </Container>
   );
 };
 
-export default CompInteractionCard;
+export default MintCard;

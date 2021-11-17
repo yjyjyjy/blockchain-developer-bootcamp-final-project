@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import useIsValidNetwork from './useIsValidNetwork';
+import useIsValidNetwork from '../hooks/useIsValidNetwork';
 import { useWeb3React } from '@web3-react/core';
 import { useAppContext } from '../AppContext';
 

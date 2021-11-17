@@ -4,7 +4,7 @@ import { useAppContext } from '../AppContext'
 const BalanceCard = () => {
   const { ethBalance, nftBalance } = useAppContext();
   return (
-    <div>
+    <div className='balance-card'>
       <div>
         ETH balance: {ethBalance}
       </div>

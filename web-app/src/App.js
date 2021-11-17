@@ -1,11 +1,16 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+import Container from 'react-bootstrap/Container';
 import { Web3ReactProvider } from '@web3-react/core';
 import { ethers } from 'ethers';
-
 import { AppContextProvider } from './AppContext';
 
-import './App.css';
+
 import BalanceCard from './components/BalanceCard';
 import MetamaskConnectButton from './components/MetamaskConnectButton';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 
 
@@ -19,18 +24,19 @@ function App() {
     <AppContextProvider>
       <Web3ReactProvider getLibrary={getLibrary}>
         <div className="App">
-          <div className="container">
-            <div className="header-container">
-              <div>
+          <Container>
+            <Row className='header-container'>
+              <Col>
                 <BalanceCard />
-                <div>Mint NFT</div>
+              </Col>
+              <Col>
                 <MetamaskConnectButton />
-              </div>
-            </div>
-            <div className='body-container'>
+              </Col>
+            </Row>
+            <Row>
               <div>Body</div>
-            </div>
-          </div>
+            </Row>
+          </Container>
         </div>
       </Web3ReactProvider>
     </AppContextProvider>

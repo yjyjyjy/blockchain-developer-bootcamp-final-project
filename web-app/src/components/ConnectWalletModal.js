@@ -6,6 +6,7 @@ import MMLogo from '../assets/metamask-logo.svg';
 import { injected } from '../connectors';
 import Modal from 'react-bootstrap/Modal';
 import useWalletConnectionModal from '../hooks/useWalletConnectionModal';
+import Text from './Text';
 
 const MetamaskLogo = styled.img.attrs({
   src: MMLogo,
@@ -20,14 +21,14 @@ const ConnectWalletModal = () => {
     <Modal show onHide={() => setWalletConnectModal(false)}>
       <Modal.Header>
         <MetamaskLogo />
-        {/* <Text uppercase color="green" t3 lineHeight="40px" className="mx-2"> */}
-        Connect your Metamask wallet
-        {/* </Text> */}
+        <Text uppercase color="green" t3 lineHeight="40px" className="mx-2">
+          Connect your Metamask wallet
+        </Text>
       </Modal.Header>
       <Modal.Body>
-        {/* <Text block className="mb-5"> */}
-        You must connect a wallet to use this decentralized application
-        {/* </Text> */}
+        <Text block className="mb-5">
+          You must connect a wallet to use this decentralized application
+        </Text>
         <Button variant="outline-dark" onClick={() => activate(injected)}>
           Connect
         </Button>

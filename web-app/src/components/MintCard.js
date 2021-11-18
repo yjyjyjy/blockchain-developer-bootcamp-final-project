@@ -1,17 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
-import { ArrowDown } from 'react-bootstrap-icons';
 import { useAppContext } from '../AppContext';
 import Spinner from 'react-bootstrap/Spinner';
-// import { Card } from 'react-bootstrap';
-// import Text from '../../components/Text';
+import Text from './Text';
 import Card from './Cards';
-// import { colors } from '../../theme';
-// import { useCToken } from '../../hooks/useCToken';
-// import useEth from '../../hooks/useEth';
-// import useTransaction from '../../hooks/useTransaction';
-// import BalanceInput from '../../components/BalanceInput';
+import { colors } from '../theme';
+import MintSlider from './MintSlider';
+import { useNFT } from '../hooks/useNFT';
+import { useWeb3React } from '@web3-react/core';
 
 const Container = styled.div`
   display: flex;
@@ -26,12 +23,15 @@ const Container = styled.div`
 `;
 
 const MintCard = () => {
-  const [depositAmount, setDepositAmount] = useState(0);
-  // const { deposit, cTokenBalance, exchangeRate } = useCToken();
-  // const { ethBalance } = useEth();
   const { txnStatus, setTxnStatus } = useAppContext();
-  // const handleDepositSubmit = () => deposit(depositAmount);
-  // const convertedAmount = useMemo(() => Number(depositAmount / exchangeRate).toFixed(4), [depositAmount, exchangeRate]);
+  const [mintState, setMintState] = useState({ mintAmount: 3 })
+  const { mint } = useNFT();
+  const { account } = useWeb3React();
+  const { mintCost, isOwner } = useAppContext();
+
+  const handleMintSubmit = () => {
+    mint(mintState.mintAmount);
+  }
 
   if (txnStatus === 'LOADING') {
     return (
@@ -47,9 +47,9 @@ const MintCard = () => {
     return (
       <Container show>
         <Card style={{ maxWidth: 420, minHeight: 400 }}>
-          {/* <Text block center className="mb-5"> */}
-          Txn Was successful!
-          {/* </Text> */}
+          <Text block center className="mb-5">
+            Txn Was successful!
+          </Text>
           <Button onClick={() => setTxnStatus('NOT_SUBMITTED')}>Go Back</Button>
         </Card>
       </Container>
@@ -59,24 +59,36 @@ const MintCard = () => {
   if (txnStatus === 'ERROR') {
     return (
       <Container show>
-        {/* <Card style={{ maxWidth: 420, minHeight: 400 }}>
+        <Card style={{ maxWidth: 420, minHeight: 400 }}>
           <Text>Txn ERROR</Text>
           <Button onClick={() => setTxnStatus('NOT_SUBMITTED')}>Go Back</Button>
-        </Card> */}
+        </Card>
       </Container>
     );
   }
   return (
     <Container show>
       <Card style={{ maxWidth: 420, minHeight: 400 }}>
-        {/* <Text block t2 color={colors.green} className="mb-3"> */}
-        Deposit
-        {/* </Text> */}
-        {/* <BalanceInput balance={ethBalance} value={depositAmount} setValue={setDepositAmount} currency="eth" /> */}
-        {/* <ArrowDown color={colors.green} size={36} style={{ margin: '1rem auto' }} /> */}
-        {/* <BalanceInput balance={cTokenBalance} value={convertedAmount} currency="cToken" title="To" /> */}
-        <Button variant="outline-dark" disabled={depositAmount <= 0} className="mt-3" onClick={() => { }}>
-          Deposit {depositAmount} ETH
+        <Text block t2 color={colors.green} className="mb-3">
+          Mint Awesome NFT
+        </Text>
+        <MintSlider mintState={mintState} setMintState={setMintState} />
+        <Text>
+          Price: {isOwner ? 0 : (mintCost / 10 ** 18).toString()} ETH per NFT
+        </Text>
+        <Text>
+          Total Cost: {isOwner ? 0 : (mintCost * mintState.mintAmount / 10 ** 18).toString()} ETH
+        </Text>
+        <Button
+          variant="outline-dark"
+          disabled={
+            mintState.mintAmount <= 0 ||
+            mintState.mintAmount > 10 ||
+            !account
+          }
+          className="mt-3"
+          onClick={handleMintSubmit}>
+          Mint {mintState.mintAmount} NFT(s)
         </Button>
       </Card>
     </Container>

@@ -1,6 +1,6 @@
 import { Card as BootstrapCard } from 'react-bootstrap';
 import styled from 'styled-components';
-import { colors } from '../themes';
+import { colors } from '../theme';
 
 const Card = styled(BootstrapCard)`
   background-color: ${colors.lightGray};

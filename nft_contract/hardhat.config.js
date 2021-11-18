@@ -1,9 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
 require('hardhat-abi-exporter');
-
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-};
+require('dotenv').config();
 
 module.exports = {
   defaultNetwork: "hardhat",

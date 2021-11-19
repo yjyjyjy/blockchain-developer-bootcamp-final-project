@@ -1,8 +1,11 @@
 # My public eth account 0x769584f59f2aCdb84AD51118122B73Cb4414a661
 Yes I very much like to receive the course certificate in NFT
 
-# NFT Minting Dapp
+# Final Product Overview -- NFT Minting Dapp
 This is the front end and smart contract that allows the users to mint a collection of eye themed generative NFTs (called Deep Eye). There are three components in creating this project: a collection of NFT Art, a backend smart contract, and a frontend web app.
+- Frontend URL: https://blockchain-developer-bootcamp-final-project-ivory.vercel.app/
+- Deployed NFT Contract address on Rinkeby: https://rinkeby.etherscan.io/address/0x0476eC77191623e22D6B73dC43998a27997d435d
+- OpenSea testnet gallery view: https://testnets.opensea.io/collection/deepeye-6wrcvmrnt5
 
 ## The art
 The collection images was generated using an open source NFT art engine called Hashlips. The code to generate the art is not my work, nor is it included in this submission. The art, along with the meta data was uploaded into the IPFS and pinned wtih Piniata. Only the hash of the meta data is included in the smart contract code. That's where my work starts.

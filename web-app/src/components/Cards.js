@@ -8,7 +8,7 @@ const Card = styled(BootstrapCard)`
   box-shadow: rgb(0 0 0 / 1%) 0px 0px 2px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px,
     rgb(0 0 0 / 1%) 0px 24px 32px;
   border-radius: 15px;
-  border-color: ${colors.green};
+  border-color: ${colors.lightBlue};
   padding: 20px;
 `;
 

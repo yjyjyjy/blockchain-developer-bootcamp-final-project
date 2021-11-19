@@ -21,7 +21,7 @@ const ConnectWalletModal = () => {
     <Modal show onHide={() => setWalletConnectModal(false)}>
       <Modal.Header>
         <MetamaskLogo />
-        <Text uppercase color="green" t3 lineHeight="40px" className="mx-2">
+        <Text uppercase color="lightBlue" t3 lineHeight="40px" className="mx-2">
           Connect your Metamask wallet
         </Text>
       </Modal.Header>

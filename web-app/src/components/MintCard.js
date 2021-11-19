@@ -69,7 +69,7 @@ const MintCard = () => {
   return (
     <Container show>
       <Card style={{ maxWidth: 420, minHeight: 400 }}>
-        <Text block t2 color={colors.green} className="mb-3">
+        <Text block t2 color={colors.lightBlue} className="mb-3">
           Mint Awesome NFT
         </Text>
         <MintSlider mintState={mintState} setMintState={setMintState} />

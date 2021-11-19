@@ -1,3 +1,6 @@
+# My public eth account 0x769584f59f2aCdb84AD51118122B73Cb4414a661
+Yes I very much like to receive the course certificate in NFT
+
 # NFT Minting Dapp
 This is the front end and smart contract that allows the users to mint a collection of eye themed generative NFTs (called Deep Eye). There are three components in creating this project: a collection of NFT Art, a backend smart contract, and a frontend web app.
 

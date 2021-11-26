@@ -18,7 +18,6 @@ NFT minters can use this contract to mint NFTs at a cost set by the owner. Owner
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./Randomness.sol";
-import "hardhat/console.sol";
 
 contract DeepEye is ERC721Enumerable, Ownable, Randomness {
   using Strings for uint256;

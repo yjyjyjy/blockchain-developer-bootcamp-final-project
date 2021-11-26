@@ -1,7 +1,7 @@
 # My public eth account 0x769584f59f2aCdb84AD51118122B73Cb4414a661
 Yes I very much like to receive the course certificate in NFT
 
-# Final Product Overview -- NFT Minting Dapp
+# Final Product Overview -- NFT Minting DApp
 This is the front end and smart contract that allows the users to mint a collection of eye themed generative NFTs (called Deep Eye). There are three components in creating this project: a collection of NFT Art, a backend smart contract, and a frontend web app.
 - Frontend URL: https://blockchain-developer-bootcamp-final-project-ivory.vercel.app/
 - Deployed NFT Contract address on Rinkeby: https://rinkeby.etherscan.io/address/0x0476eC77191623e22D6B73dC43998a27997d435d
@@ -70,13 +70,3 @@ The source code is under web-app folder. Folder structure:
 - connectors.js -> manages the injected connector.
 - theme.js -> some custom theme
 
-# Design Patterns and security considerations:
-## Design patters:
-1. Oracles
-2. Inheritance
-3. Access Control
-4. Upgradable Contract
-
-## Security considerations:
-1. Avoid re-entrancy attack
-2. primoritize pull over push

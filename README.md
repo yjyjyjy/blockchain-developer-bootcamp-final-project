@@ -7,6 +7,8 @@ This is the front end and smart contract that allows the users to mint a collect
 - Deployed NFT Contract address on Rinkeby: https://rinkeby.etherscan.io/address/0x0476eC77191623e22D6B73dC43998a27997d435d
 - OpenSea testnet gallery view: https://testnets.opensea.io/collection/deepeye-6wrcvmrnt5
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9XenfvP8qSI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## The art
 The collection images was generated using an open source NFT art engine called Hashlips. The code to generate the art is not my work, nor is it included in this submission. The art, along with the meta data was uploaded into the IPFS and pinned wtih Piniata. Only the hash of the meta data is included in the smart contract code. That's where my work starts.
 

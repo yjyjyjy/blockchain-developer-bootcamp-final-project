@@ -94,6 +94,7 @@ contract DeepEye is ERC721Enumerable, Ownable, Randomness {
     cost = _newCost;
   }
 
+  // Owner can change the max amount of NFTs being minted at a time.
   function setmaxMintAmount(uint256 _newmaxMintAmount) public onlyOwner {
     maxMintAmount = _newmaxMintAmount;
   }

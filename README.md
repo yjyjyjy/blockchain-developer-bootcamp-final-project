@@ -32,59 +32,55 @@ A frontend web app was created and deployed to xxx so the users can mint the NFT
 - Minting cost set by the contract owner will be displayed
 - Once the mint button is clicked, Metamask will prompt the user for payment and start the minting process
 
-# File structure and environment setup
-## Local environment setup to run the code
-- Clone the code base.
-```
-git clone git@github.com:yjyjyjy/blockchain-developer-bootcamp-final-project.git
-```
-- Install dependencies: Run `yarn` in each of the two folders under root folder (web-app, and nft_contract).
-```
-cd blockchain-developer-bootcamp-final-project/nft_contract/ && yarn && cd ../web-app/ && yarn
-```
-- Populate .env: create a .env file under nft_contract folder and fill in the following credentials:
-  - RINKEBY_END_POINT= < You need to create a project on Infura and put the end point here >
-  - RINKEBY_PROJECT_ID= < your Infura project ID >
-  - DEV_ACCOUNT_PRIVATE_KEY= < Your metamask account private key >
-  - RINKEBY_CONTRACT_ADDRESS=0x0476eC77191623e22D6B73dC43998a27997d435d
-- Fund your wallet with some Rinkeby ETH and Rinkeby LINK token.
+# File structure, environment setup, and run test
 ## File structure
 ```
 -- nft_contract            // contract folder
-   |-- artifacts           // contract artifacts
+   |-- artifacts
    |-- contracts           // core solidity code
    |-- data/abi            // abi
-   |-- node_modules        // yarn modules
+   |-- node_modules
    |-- script              // deploy script (and interaction script for dev purpose only)
    |-- test                // tests
 -- web-app                 // frontend web app
+   |-- public
+   |-- src                 // core web app code folder
+      |-- assets           // icons and abi
+      |-- components
+      |-- hooks
+      |-- utils            // utility functions
+   |-- node_modules
 ```
-### NFT smart contract
-The code is under the nft_contract folder.
-- **contracts folder**: this is where the contract source code is stored. The main contract is under DeepEye.sol. It contains the main logic of the NFT contract including minting, RUI serving, reveal and other admin function. Randomness.sol is a Chainlink oracle consumer contract where it requests and receives a random integer and store that to the contract state so the mapping between tokenId and meta data URI can be randomized.
-- **test folder**: this is where the tests are stored. The test is written in Hardhat. The purpose and expected outcome of each test is explained in the code. (Assuming that the `HH` shorthand is installed), to run the test simply run
+
+## Local environment setup
+1. Clone the code base.
+```
+git clone git@github.com:yjyjyjy/blockchain-developer-bootcamp-final-project.git
+```
+2. Install dependencies:
+```
+cd blockchain-developer-bootcamp-final-project/web-app/ && yarn && cd ../nft_contract/ && yarn
+```
+3. Populate .env:
+
+Under `nft_contract` folder (you should be there without navigating):
+```
+echo -e "BASE_URI=ipfs://QmZCCuNKGT9Y11r91aoXXj4hDZ8yAXL4UXB7iz5iQ3fGBa/\nHIDDEN_META_URI=ipfs://QmaAw1oqwKETsCK5AP2t5B3XieZH5vcwufFeB3tN2a7wJH/coming_soon.json\nRINKEBY_CONTRACT_ADDRESS=0x0476eC77191623e22D6B73dC43998a27997d435d
+" > .env
+```
+
+## Run Test
+Under `nft_contract/` folder:
 ```
 npx hardhat test
 ```
-- **script folder**: `deploy.js` manages the deployment of the contract. `interact.js` is file created during development to quickly interact with the deployed contract. It has no production value. After each deployment, the ABI will be saved under **data/abi folder**
 
+## Mint NFTs on the deployed frontend
+You will need some testing Rinkeby ETH
 
-To deploy locally on to Hardhat's local network
-```
-npx hardhat run deploy
-```
-To deploy to Rinkeby test net
-```
-npx hardhat run deploy --network -rinkeby
-```
+Here is a throw-away account with pre-loaded rinkeby ETH
 
-### Frontend web-app
-The source code is under web-app folder. Folder structure:
-- **assets** static assets including abi and icon images
-- **components** react components
-- **hooks** custom hooks
-- **utils** utilities
-- AppContext.js -> This is where the app state is managed
-- connectors.js -> manages the injected connector.
-- theme.js -> some custom theme
+- mnemonic:
+submit spawn lounge smooth surprise gaze photo century bar story milk broccoli
 
+- private key: 0xae831e96689548d92d4528844d4f01492f56f2bd3788630254fa52efd28acbaa

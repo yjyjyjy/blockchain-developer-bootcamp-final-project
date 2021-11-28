@@ -36,9 +36,12 @@ A frontend web app was created and deployed to xxx so the users can mint the NFT
 ## Local environment setup to run the code
 - Clone the code base.
 ```
-git clone ....
+git clone git@github.com:yjyjyjy/blockchain-developer-bootcamp-final-project.git
 ```
 - Install dependencies: Run `yarn` in each of the two folders under root folder (web-app, and nft_contract).
+```
+cd blockchain-developer-bootcamp-final-project/nft_contract/ && yarn && cd ../web-app/ && yarn
+```
 - Populate .env: create a .env file under nft_contract folder and fill in the following credentials:
   - RINKEBY_END_POINT= < You need to create a project on Infura and put the end point here >
   - RINKEBY_PROJECT_ID= < your Infura project ID >
@@ -46,23 +49,33 @@ git clone ....
   - RINKEBY_CONTRACT_ADDRESS=0x0476eC77191623e22D6B73dC43998a27997d435d
 - Fund your wallet with some Rinkeby ETH and Rinkeby LINK token.
 ## File structure
+```
+-- nft_contract            // contract folder
+   |-- artifacts           // contract artifacts
+   |-- contracts           // core solidity code
+   |-- data/abi            // abi
+   |-- node_modules        // yarn modules
+   |-- script              // deploy script (and interaction script for dev purpose only)
+   |-- test                // tests
+-- web-app                 // frontend web app
+```
 ### NFT smart contract
 The code is under the nft_contract folder.
 - **contracts folder**: this is where the contract source code is stored. The main contract is under DeepEye.sol. It contains the main logic of the NFT contract including minting, RUI serving, reveal and other admin function. Randomness.sol is a Chainlink oracle consumer contract where it requests and receives a random integer and store that to the contract state so the mapping between tokenId and meta data URI can be randomized.
 - **test folder**: this is where the tests are stored. The test is written in Hardhat. The purpose and expected outcome of each test is explained in the code. (Assuming that the `HH` shorthand is installed), to run the test simply run
 ```
-hh test
+npx hardhat test
 ```
 - **script folder**: `deploy.js` manages the deployment of the contract. `interact.js` is file created during development to quickly interact with the deployed contract. It has no production value. After each deployment, the ABI will be saved under **data/abi folder**
 
 
 To deploy locally on to Hardhat's local network
 ```
-hh run deploy
+npx hardhat run deploy
 ```
 To deploy to Rinkeby test net
 ```
-hh run deploy --network -rinkeby
+npx hardhat run deploy --network -rinkeby
 ```
 
 ### Frontend web-app

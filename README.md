@@ -65,8 +65,7 @@ cd blockchain-developer-bootcamp-final-project/web-app/ && yarn && cd ../nft_con
 
 Under `nft_contract` folder (you should be there without navigating):
 ```
-echo -e "BASE_URI=ipfs://QmZCCuNKGT9Y11r91aoXXj4hDZ8yAXL4UXB7iz5iQ3fGBa/\nHIDDEN_META_URI=ipfs://QmaAw1oqwKETsCK5AP2t5B3XieZH5vcwufFeB3tN2a7wJH/coming_soon.json\nRINKEBY_CONTRACT_ADDRESS=0x0476eC77191623e22D6B73dC43998a27997d435d
-" > .env
+echo -e "BASE_URI=ipfs://QmZCCuNKGT9Y11r91aoXXj4hDZ8yAXL4UXB7iz5iQ3fGBa/\nHIDDEN_META_URI=ipfs://QmaAw1oqwKETsCK5AP2t5B3XieZH5vcwufFeB3tN2a7wJH/coming_soon.json\nRINKEBY_CONTRACT_ADDRESS=0x0476eC77191623e22D6B73dC43998a27997d435d" > .env
 ```
 
 ## Run Test

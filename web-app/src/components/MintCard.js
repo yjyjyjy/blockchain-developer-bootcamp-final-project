@@ -57,7 +57,6 @@ const MintCard = () => {
   }
 
   if (txnStatus === 'ERROR') {
-    console.log(chainId)
     return (
       <Container show>
         <Card style={{ maxWidth: 420, minHeight: 400 }}>

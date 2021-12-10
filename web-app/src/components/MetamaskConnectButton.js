@@ -30,8 +30,7 @@ const MetamaskConnectButton = () => {
   const handleLogin = () => {
     activate(injected);
   }
-  let flag = chainId in networkIdMapping
-  console.log("Chain ID Mapping key available " + flag.toString())
+
   return (
     <div className='flex-column'>
       <Row className='align-right'>

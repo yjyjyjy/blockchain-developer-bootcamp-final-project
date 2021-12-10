@@ -26,7 +26,7 @@ const MintCard = () => {
   const { txnStatus, setTxnStatus } = useAppContext();
   const [mintState, setMintState] = useState({ mintAmount: 3 })
   const { mint } = useNFT();
-  const { account } = useWeb3React();
+  const { account, active, chainId } = useWeb3React();
   const { mintCost, isOwner } = useAppContext();
 
   const handleMintSubmit = () => {
@@ -57,10 +57,11 @@ const MintCard = () => {
   }
 
   if (txnStatus === 'ERROR') {
+    console.log(chainId)
     return (
       <Container show>
         <Card style={{ maxWidth: 420, minHeight: 400 }}>
-          <Text>Txn ERROR</Text>
+          <Text>{active && chainId !== 4 ? <span className="heavy-red">Please switch to Rinkeby network to use the app</span> : "Txn ERROR"}</Text>
           <Button onClick={() => setTxnStatus('NOT_SUBMITTED')}>Go Back</Button>
         </Card>
       </Container>

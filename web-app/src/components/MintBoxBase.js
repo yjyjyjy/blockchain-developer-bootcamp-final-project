@@ -4,6 +4,7 @@ import ConnectWalletModal from './ConnectWalletModal';
 import MintCard from './MintCard';
 import useWalletConnectionModal from '../hooks/useWalletConnectionModal';
 
+
 const MintBoxBase = () => {
   const { isWalletConnectModalOpen } = useWalletConnectionModal();
   return (

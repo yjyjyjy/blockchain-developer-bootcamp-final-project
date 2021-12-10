@@ -15,8 +15,9 @@ const MetamaskLogo = styled.img.attrs({
 `;
 
 const ConnectWalletModal = () => {
-  const { activate } = useWeb3React();
+  const { activate, chainId } = useWeb3React();
   const { setWalletConnectModal } = useWalletConnectionModal();
+  console.log(chainId)
   return (
     <Modal show onHide={() => setWalletConnectModal(false)}>
       <Modal.Header>

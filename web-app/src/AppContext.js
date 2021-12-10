@@ -1,6 +1,6 @@
 import React, { useContext, createContext, useReducer } from 'react';
 
-
+// initial state
 const initialContext = {
   isOwner: false,
   setIsOwner: () => { },

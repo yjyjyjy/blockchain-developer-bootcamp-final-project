@@ -39,6 +39,16 @@
   margin-right: 0;
 }
 
+.heavy-red {
+  color: red;
+  font-weight: bold;
+}
+
+.heavy-green {
+  color: green;
+  font-weight: bold;
+}
+
 /*
 .authed-container {
   height: 100%;
